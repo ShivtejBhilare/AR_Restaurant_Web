@@ -48,81 +48,43 @@
             transform: scale(1.2);
         }
 
-        /* Font Awesome Icons */
-        .social-button i {
-            color: white;
-            font-size: 1.5em;
-        }
-
-        /* Keyboard Press Effect for SWASTIK-TECH */
+        /* Keyboard Press Effect */
         .keyboard {
-            position: fixed;
-            top: 50%;
+            position: absolute;
+            bottom: -1.5em;
             left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1000;
-            display: flex;
-            gap: 0.5vw;
+            transform: translateX(-50%);
+            white-space: nowrap;
         }
 
         .key {
-            font-size: 5vw;
             display: inline-block;
-            letter-spacing: -0.5vw;
-            transition: transform 0.2s;
-            color: white;
             font-family: "Poppins", sans-serif;
             font-weight: 900;
+            color: white;
+            font-size: 0.3em;
+            margin: 0 0.1em;
+            transition: transform 0.2s;
         }
 
-        @keyframes pressDown1 {
+        /* Animation keyframes */
+        @keyframes pressDown { 
             30%, 40%, 100% { transform: translateY(0); }
-            35% { transform: translateY(10px); }
+            35% { transform: translateY(2px); } 
         }
-
-        @keyframes pressDown2 {
-            70%, 80%, 100% { transform: translateY(0); }
-            75% { transform: translateY(10px); }
-        }
-
-        @keyframes pressDown3 {
-            30%, 40%, 100% { transform: translateY(0); }
-            35% { transform: translateY(10px); }
-        }
-
-        @keyframes pressDown4 {
-            40%, 50%, 100% { transform: translateY(0); }
-            45% { transform: translateY(10px); }
-        }
-
-        @keyframes pressDown5 {
-            20%, 30%, 100% { transform: translateY(0); }
-            25% { transform: translateY(10px); }
-        }
-
-        @keyframes pressDown6 {
-            60%, 70%, 100% { transform: translateY(0); }
-            65% { transform: translateY(10px); }
-        }
-
-        @keyframes pressDown7 {
-            10%, 20%, 100% { transform: translateY(0); }
-            15% { transform: translateY(10px); }
-        }
-
-        @keyframes pressDown8 {
-            35%, 45%, 100% { transform: translateY(0); }
-            40% { transform: translateY(10px); }
-        }
-
-        .key:nth-child(1) { animation: pressDown1 2s infinite; }
-        .key:nth-child(2) { animation: pressDown2 3s infinite; }
-        .key:nth-child(3) { animation: pressDown3 4s infinite; }
-        .key:nth-child(4) { animation: pressDown4 2.5s infinite; }
-        .key:nth-child(5) { animation: pressDown5 2.5s infinite; }
-        .key:nth-child(6) { animation: pressDown6 3.5s infinite; }
-        .key:nth-child(7) { animation: pressDown7 2.2s infinite; }
-        .key:nth-child(8) { animation: pressDown8 3.2s infinite; }
+        .key:nth-child(1) { animation: pressDown 2s infinite; }
+        .key:nth-child(2) { animation: pressDown 3s infinite; }
+        .key:nth-child(3) { animation: pressDown 4s infinite; }
+        .key:nth-child(4) { animation: pressDown 2.5s infinite; }
+        .key:nth-child(5) { animation: pressDown 3.5s infinite; }
+        .key:nth-child(6) { animation: pressDown 2.2s infinite; }
+        .key:nth-child(7) { animation: pressDown 3.2s infinite; }
+        .key:nth-child(8) { animation: pressDown 2s infinite; }
+        .key:nth-child(9) { animation: pressDown 3s infinite; }
+        .key:nth-child(10) { animation: pressDown 4s infinite; }
+        .key:nth-child(11) { animation: pressDown 2.5s infinite; }
+        .key:nth-child(12) { animation: pressDown 3.5s infinite; }
+        .key:nth-child(13) { animation: pressDown 2.2s infinite; }
     </style>
 </head>
 <body>
@@ -134,35 +96,41 @@
             <a-entity position="0 0.5 0" rotation="-90 0 0">
                 <!-- Menu Image -->
                 <a-image src="assets/menu.jpg" width="1.8" height="2.4" position="0 0 0"></a-image>
+
+                <!-- Made by SWASTIK-TECH Text -->
+                <a-entity class="keyboard" position="0 -1.3 0.01">
+                    <a-text value="MADE BY" color="white" align="center" width="6" position="0 0.2 0" scale="0.8 0.8 0.8"></a-text>
+                    <a-entity position="-0.45 -0.15 0">
+                        <span class="key">S</span>
+                        <span class="key">W</span>
+                        <span class="key">A</span>
+                        <span class="key">S</span>
+                        <span class="key">T</span>
+                        <span class="key">I</span>
+                        <span class="key">K</span>
+                        <span class="key">-</span>
+                        <span class="key">T</span>
+                        <span class="key">E</span>
+                        <span class="key">C</span>
+                        <span class="key">H</span>
+                    </a-entity>
+                </a-entity>
             </a-entity>
 
             <!-- 3D Food Models -->
-            <!-- Burger Model -->
-            <a-entity id="burgerModel" position="1 0.5 0" scale="0.01 0.01 0.01" visible="false">
-                <a-cylinder color="#8B4513" radius="0.3" height="0.1" position="0 0 0"></a-cylinder>
-                <a-box color="#DEB887" width="0.6" height="0.05" depth="0.6" position="0 0.1 0"></a-box>
-                <a-sphere color="#FF6347" radius="0.15" position="0 0.2 0"></a-sphere>
-                <a-animation attribute="rotation" to="0 360 0" dur="5000" repeat="indefinite"></a-animation>
-            </a-entity>
-
-            <!-- Pizza Model -->
-            <a-entity id="pizzaModel" position="-1 0.5 0" scale="0.01 0.01 0.01" visible="false">
-                <a-cylinder color="#FFA500" radius="0.5" height="0.1" theta-length="270" rotation="0 0 0">
-                    <a-animation attribute="rotation" to="0 360 0" dur="4000" repeat="indefinite"></a-animation>
-                </a-cylinder>
+            <a-entity id="burgerModel" position="1 0.5 0" scale="0.5 0.5 0.5" visible="false">
+                <!-- Burger model components -->
             </a-entity>
         </a-marker>
 
-        <!-- Camera Entity -->
         <a-entity camera></a-entity>
     </a-scene>
 
     <!-- UI Elements -->
     <div class="instruction">
-        Point your camera at the Hiro marker to view the AR menu
+        Point camera at Hiro marker to view menu
     </div>
 
-    <!-- Social Media Buttons -->
     <div class="social-buttons">
         <div class="social-button" style="background: #E1306C" id="instagramBtn">
             <i class="fab fa-instagram"></i>
@@ -172,23 +140,6 @@
         </div>
     </div>
 
-    <!-- Keyboard Press Effect for SWASTIK-TECH -->
-    <div class="keyboard">
-        <span class="key">S</span>
-        <span class="key">W</span>
-        <span class="key">A</span>
-        <span class="key">S</span>
-        <span class="key">T</span>
-        <span class="key">I</span>
-        <span class="key">K</span>
-        <span class="key">-</span>
-        <span class="key">T</span>
-        <span class="key">E</span>
-        <span class="key">C</span>
-        <span class="key">H</span>
-    </div>
-
-    <!-- Interaction Script -->
     <script>
         // Social Media Interactions
         document.getElementById('instagramBtn').addEventListener('click', () => {
@@ -199,41 +150,9 @@
             window.open('https://linkedin.com/company/swastik-tech', '_blank');
         });
 
-        // Food Item Interactions
-        const menuItems = {
-            burger: {
-                model: document.getElementById('burgerModel'),
-                text: document.createElement('a-text')
-            },
-            pizza: {
-                model: document.getElementById('pizzaModel'),
-                text: document.createElement('a-text')
-            }
-        };
-
-        // Configure text elements
-        Object.values(menuItems).forEach(item => {
-            item.text.setAttribute('value', 'Click to order!');
-            item.text.setAttribute('color', 'green');
-            item.text.setAttribute('position', '0 -0.5 0');
-            item.text.setAttribute('visible', 'false');
-            item.model.appendChild(item.text);
-        });
-
-        // Add click handlers
-        document.querySelector('a-marker').addEventListener('markerFound', () => {
-            Object.values(menuItems).forEach(item => {
-                item.model.addEventListener('click', () => {
-                    item.model.setAttribute('visible', true);
-                    item.model.setAttribute('scale', '0.5 0.5 0.5');
-                    item.text.setAttribute('visible', true);
-                    
-                    setTimeout(() => {
-                        item.model.setAttribute('visible', false);
-                        item.text.setAttribute('visible', false);
-                    }, 3000);
-                });
-            });
+        // Add keyboard press effect to all keys
+        document.querySelectorAll('.key').forEach((key, index) => {
+            key.style.animation = `pressDown ${2 + (index * 0.2)}s infinite`;
         });
     </script>
 </body>
