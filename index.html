@@ -4,27 +4,125 @@
     <title>AR Restaurant Menu</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-    <!-- Add Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* Global Styles */
         body { margin: 0; overflow: hidden; }
+
+        /* Instruction Panel */
         .instruction {
             position: fixed;
             top: 20px;
             left: 20px;
             color: white;
             background: rgba(0,0,0,0.7);
-            padding: 10px;
-            border-radius: 5px;
+            padding: 15px;
+            border-radius: 8px;
             z-index: 1000;
+            font-family: Arial, sans-serif;
         }
-        /* Style for Font Awesome icons */
-        .icon {
-            font-family: 'Font Awesome 6 Brands';
-            font-size: 0.5em;
+
+        /* Social Media Buttons */
+        .social-buttons {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .social-button:hover {
+            transform: scale(1.2);
+        }
+
+        /* Font Awesome Icons */
+        .social-button i {
             color: white;
-            text-align: center;
+            font-size: 1.5em;
         }
+
+        /* Keyboard Press Effect for SWASTIK-TECH */
+        .keyboard {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            display: flex;
+            gap: 0.5vw;
+        }
+
+        .key {
+            font-size: 5vw;
+            display: inline-block;
+            letter-spacing: -0.5vw;
+            transition: transform 0.2s;
+            color: white;
+            font-family: "Poppins", sans-serif;
+            font-weight: 900;
+        }
+
+        @keyframes pressDown1 {
+            30%, 40%, 100% { transform: translateY(0); }
+            35% { transform: translateY(10px); }
+        }
+
+        @keyframes pressDown2 {
+            70%, 80%, 100% { transform: translateY(0); }
+            75% { transform: translateY(10px); }
+        }
+
+        @keyframes pressDown3 {
+            30%, 40%, 100% { transform: translateY(0); }
+            35% { transform: translateY(10px); }
+        }
+
+        @keyframes pressDown4 {
+            40%, 50%, 100% { transform: translateY(0); }
+            45% { transform: translateY(10px); }
+        }
+
+        @keyframes pressDown5 {
+            20%, 30%, 100% { transform: translateY(0); }
+            25% { transform: translateY(10px); }
+        }
+
+        @keyframes pressDown6 {
+            60%, 70%, 100% { transform: translateY(0); }
+            65% { transform: translateY(10px); }
+        }
+
+        @keyframes pressDown7 {
+            10%, 20%, 100% { transform: translateY(0); }
+            15% { transform: translateY(10px); }
+        }
+
+        @keyframes pressDown8 {
+            35%, 45%, 100% { transform: translateY(0); }
+            40% { transform: translateY(10px); }
+        }
+
+        .key:nth-child(1) { animation: pressDown1 2s infinite; }
+        .key:nth-child(2) { animation: pressDown2 3s infinite; }
+        .key:nth-child(3) { animation: pressDown3 4s infinite; }
+        .key:nth-child(4) { animation: pressDown4 2.5s infinite; }
+        .key:nth-child(5) { animation: pressDown5 2.5s infinite; }
+        .key:nth-child(6) { animation: pressDown6 3.5s infinite; }
+        .key:nth-child(7) { animation: pressDown7 2.2s infinite; }
+        .key:nth-child(8) { animation: pressDown8 3.2s infinite; }
     </style>
 </head>
 <body>
@@ -34,111 +132,108 @@
         <a-marker preset="hiro">
             <!-- Menu Card -->
             <a-entity position="0 0.5 0" rotation="-90 0 0">
-                <!-- Menu Image (Replace with your image) -->
-                <a-image src="assets/menu.jpg" width="1.5" height="2" position="0 0 0"></a-image>
-
-                <!-- Footer Text with Randomized Keyboard Effect -->
-                <a-entity id="keyboardText" position="0 -1.2 0.01" scale="0.5 0.5 0.5">
-                    <a-text id="dynamicText" value="" color="#FFFFFF" align="center"></a-text>
-                </a-entity>
-
-                <!-- Social Media Buttons -->
-                <!-- Instagram Button -->
-                <a-entity id="instagramButton" position="-0.4 -1.5 0.01" scale="0.2 0.2 0.2">
-                    <a-circle color="#E1306C" radius="0.5"></a-circle>
-                    <a-text class="icon" value="" position="0 0 0.01"></a-text> <!-- Instagram icon -->
-                    <a-animation attribute="scale" to="0.25 0.25 0.25" dur="500" begin="mouseenter" end="mouseleave"></a-animation>
-                </a-entity>
-
-                <!-- LinkedIn Button -->
-                <a-entity id="linkedinButton" position="0.4 -1.5 0.01" scale="0.2 0.2 0.2">
-                    <a-circle color="#0077B5" radius="0.5"></a-circle>
-                    <a-text class="icon" value="" position="0 0 0.01"></a-text> <!-- LinkedIn icon -->
-                    <a-animation attribute="scale" to="0.25 0.25 0.25" dur="500" begin="mouseenter" end="mouseleave"></a-animation>
-                </a-entity>
+                <!-- Menu Image -->
+                <a-image src="assets/menu.jpg" width="1.8" height="2.4" position="0 0 0"></a-image>
             </a-entity>
 
-            <!-- 3D Food Objects -->
-            <!-- Chicken Fried Rice -->
-            <a-entity id="riceModel" position="1 0 0" scale="0.5 0.5 0.5" visible="false">
-                <a-box color="#8B4513" depth="0.3" height="0.1" width="0.8" position="0 0.3 0"></a-box>
-                <a-cylinder color="#DEB887" radius="0.4" height="0.2" position="0 0.2 0"></a-cylinder>
-                <a-sphere color="#FF6347" radius="0.15" position="0 0.35 0"></a-sphere>
-                <a-box color="#228B22" depth="0.3" height="0.05" width="0.7" position="0 0.15 0"></a-box>
-                <a-animation attribute="position" from="1 0 0" to="1 0.5 0" dur="2000" repeat="indefinite" direction="alternate"></a-animation>
+            <!-- 3D Food Models -->
+            <!-- Burger Model -->
+            <a-entity id="burgerModel" position="1 0.5 0" scale="0.01 0.01 0.01" visible="false">
+                <a-cylinder color="#8B4513" radius="0.3" height="0.1" position="0 0 0"></a-cylinder>
+                <a-box color="#DEB887" width="0.6" height="0.05" depth="0.6" position="0 0.1 0"></a-box>
+                <a-sphere color="#FF6347" radius="0.15" position="0 0.2 0"></a-sphere>
+                <a-animation attribute="rotation" to="0 360 0" dur="5000" repeat="indefinite"></a-animation>
             </a-entity>
 
-            <!-- Beef Burger -->
-            <a-entity id="burgerModel" position="-1 0 0" scale="0.6 0.6 0.6" visible="false">
-                <a-cylinder color="#8B4513" radius="0.5" height="0.2" position="0 0.1 0"></a-cylinder>
-                <a-cylinder color="#FFD700" radius="0.4" height="0.1" position="0 0.2 0"></a-cylinder>
-                <a-sphere color="#FF6347" radius="0.15" position="0 0.3 0"></a-sphere>
-                <a-animation attribute="rotation" to="0 360 0" dur="3000" repeat="indefinite"></a-animation>
+            <!-- Pizza Model -->
+            <a-entity id="pizzaModel" position="-1 0.5 0" scale="0.01 0.01 0.01" visible="false">
+                <a-cylinder color="#FFA500" radius="0.5" height="0.1" theta-length="270" rotation="0 0 0">
+                    <a-animation attribute="rotation" to="0 360 0" dur="4000" repeat="indefinite"></a-animation>
+                </a-cylinder>
             </a-entity>
         </a-marker>
 
-        <!-- Camera -->
+        <!-- Camera Entity -->
         <a-entity camera></a-entity>
     </a-scene>
 
-    <!-- Instruction Text -->
+    <!-- UI Elements -->
     <div class="instruction">
-        Point camera at the Hiro marker to view the menu.
+        Point your camera at the Hiro marker to view the AR menu
+    </div>
+
+    <!-- Social Media Buttons -->
+    <div class="social-buttons">
+        <div class="social-button" style="background: #E1306C" id="instagramBtn">
+            <i class="fab fa-instagram"></i>
+        </div>
+        <div class="social-button" style="background: #0077B5" id="linkedinBtn">
+            <i class="fab fa-linkedin"></i>
+        </div>
+    </div>
+
+    <!-- Keyboard Press Effect for SWASTIK-TECH -->
+    <div class="keyboard">
+        <span class="key">S</span>
+        <span class="key">W</span>
+        <span class="key">A</span>
+        <span class="key">S</span>
+        <span class="key">T</span>
+        <span class="key">I</span>
+        <span class="key">K</span>
+        <span class="key">-</span>
+        <span class="key">T</span>
+        <span class="key">E</span>
+        <span class="key">C</span>
+        <span class="key">H</span>
     </div>
 
     <!-- Interaction Script -->
     <script>
-        // Randomized Keyboard Pressing Text Effect
-        const textElement = document.getElementById('dynamicText');
-        const finalText = "Made by SWASTIK-TECH";
-        let currentText = "";
-        let index = 0;
+        // Social Media Interactions
+        document.getElementById('instagramBtn').addEventListener('click', () => {
+            window.open('https://instagram.com/swastik-tech', '_blank');
+        });
 
-        const randomizeText = () => {
-            if (index < finalText.length) {
-                currentText += finalText[index];
-                textElement.setAttribute('value', currentText);
-                index++;
-                setTimeout(randomizeText, 100); // Adjust speed here
+        document.getElementById('linkedinBtn').addEventListener('click', () => {
+            window.open('https://linkedin.com/company/swastik-tech', '_blank');
+        });
+
+        // Food Item Interactions
+        const menuItems = {
+            burger: {
+                model: document.getElementById('burgerModel'),
+                text: document.createElement('a-text')
+            },
+            pizza: {
+                model: document.getElementById('pizzaModel'),
+                text: document.createElement('a-text')
             }
         };
 
-        // Start the effect
-        randomizeText();
+        // Configure text elements
+        Object.values(menuItems).forEach(item => {
+            item.text.setAttribute('value', 'Click to order!');
+            item.text.setAttribute('color', 'green');
+            item.text.setAttribute('position', '0 -0.5 0');
+            item.text.setAttribute('visible', 'false');
+            item.model.appendChild(item.text);
+        });
 
-        // Add click interactions for menu items
-        const menuItems = [
-            { id: 'riceModel', text: 'Chicken Fried Rice' },
-            { id: 'burgerModel', text: 'Beef Burger' }
-        ];
-
-        menuItems.forEach(item => {
-            const model = document.getElementById(item.id);
-            const text = document.createElement('a-text');
-            text.setAttribute('value', item.text);
-            text.setAttribute('position', '0 -0.5 0');
-            text.setAttribute('color', 'red');
-            text.setAttribute('visible', 'false');
-
-            model.addEventListener('click', () => {
-                model.setAttribute('visible', !model.getAttribute('visible'));
-                text.setAttribute('visible', !text.getAttribute('visible'));
-                setTimeout(() => text.setAttribute('visible', 'false'), 2000);
+        // Add click handlers
+        document.querySelector('a-marker').addEventListener('markerFound', () => {
+            Object.values(menuItems).forEach(item => {
+                item.model.addEventListener('click', () => {
+                    item.model.setAttribute('visible', true);
+                    item.model.setAttribute('scale', '0.5 0.5 0.5');
+                    item.text.setAttribute('visible', true);
+                    
+                    setTimeout(() => {
+                        item.model.setAttribute('visible', false);
+                        item.text.setAttribute('visible', false);
+                    }, 3000);
+                });
             });
-
-            model.appendChild(text);
-        });
-
-        // Add click interactions for social media buttons
-        const instagramButton = document.getElementById('instagramButton');
-        const linkedinButton = document.getElementById('linkedinButton');
-
-        instagramButton.addEventListener('click', () => {
-            window.open('https://www.instagram.com/swastik-tech', '_blank');
-        });
-
-        linkedinButton.addEventListener('click', () => {
-            window.open('https://www.linkedin.com/company/swastik-tech', '_blank');
         });
     </script>
 </body>
