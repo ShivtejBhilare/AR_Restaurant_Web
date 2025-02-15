@@ -28,23 +28,21 @@
                 <!-- Menu Image (Replace with your image) -->
                 <a-image src="assets/menu.jpg" width="1.5" height="2" position="0 0 0"></a-image>
 
-                <!-- Footer Text with Fade Animation -->
-                <a-text value="Made by SWASTIK-TECH" color="#FFFFFF" align="center" position="0 -1.2 0.01" scale="0.5 0.5 0.5"
-                    animation="property: opacity; from: 0; to: 1; dir: alternate; loop: true; dur: 2000; easing: easeInOutSine">
-                </a-text>
+                <!-- Footer Text with Randomized Keyboard Effect -->
+                <a-entity id="keyboardText" position="0 -1.2 0.01" scale="0.5 0.5 0.5">
+                    <a-text id="dynamicText" value="" color="#FFFFFF" align="center"></a-text>
+                </a-entity>
 
                 <!-- Social Media Buttons -->
                 <!-- Instagram Button -->
                 <a-entity id="instagramButton" position="-0.4 -1.5 0.01" scale="0.2 0.2 0.2">
-                    <a-circle color="#E1306C" radius="0.5"></a-circle>
-                    <a-text value="IG" color="#FFFFFF" align="center" position="0 0 0.01"></a-text>
+                    <a-image src="assets/instagram-logo.png" width="0.5" height="0.5"></a-image>
                     <a-animation attribute="scale" to="0.25 0.25 0.25" dur="500" begin="mouseenter" end="mouseleave"></a-animation>
                 </a-entity>
 
                 <!-- LinkedIn Button -->
                 <a-entity id="linkedinButton" position="0.4 -1.5 0.01" scale="0.2 0.2 0.2">
-                    <a-circle color="#0077B5" radius="0.5"></a-circle>
-                    <a-text value="IN" color="#FFFFFF" align="center" position="0 0 0.01"></a-text>
+                    <a-image src="assets/linkedin-logo.png" width="0.5" height="0.5"></a-image>
                     <a-animation attribute="scale" to="0.25 0.25 0.25" dur="500" begin="mouseenter" end="mouseleave"></a-animation>
                 </a-entity>
             </a-entity>
@@ -79,6 +77,24 @@
 
     <!-- Interaction Script -->
     <script>
+        // Randomized Keyboard Pressing Text Effect
+        const textElement = document.getElementById('dynamicText');
+        const finalText = "Made by SWASTIK-TECH";
+        let currentText = "";
+        let index = 0;
+
+        const randomizeText = () => {
+            if (index < finalText.length) {
+                currentText += finalText[index];
+                textElement.setAttribute('value', currentText);
+                index++;
+                setTimeout(randomizeText, 100); // Adjust speed here
+            }
+        };
+
+        // Start the effect
+        randomizeText();
+
         // Add click interactions for menu items
         const menuItems = [
             { id: 'riceModel', text: 'Chicken Fried Rice' },
