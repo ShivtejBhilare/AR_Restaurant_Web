@@ -81,8 +81,8 @@
         <a-marker preset="hiro">
             <!-- Menu Card -->
             <a-entity id="menuCard" position="0 0.5 0" rotation="-90 0 0">
-                <!-- Menu Image (Default: Page 1) -->
-                <a-image id="menuImage" src="assets/menu1.jpg" width="1.8" height="2.4" position="0 0 0"></a-image>
+                <!-- Menu Image or Video -->
+                <a-image id="menuContent" src="assets/menu1.jpg" width="1.8" height="2.4" position="0 0 0"></a-image>
 
                 <!-- Simple Text Below Menu -->
                 <a-text value="MADE BY SWASTIK-TECH" 
@@ -132,17 +132,25 @@
         });
 
         // Multi-Page Menu Logic
-        const menuImage = document.getElementById('menuImage');
+        const menuContent = document.getElementById('menuContent');
         const menuPages = [
-            'assets/menu1.jpg',
-            'assets/menu2.jpg',
-            'assets/menu3.jpg'
+            { type: 'image', src: 'assets/menu1.jpg' },
+            { type: 'image', src: 'assets/menu3.jpg' },
+            { type: 'video', src: 'assets/promo.mp4' } // Add your video file
         ];
         let currentPage = 0;
 
-        // Update Menu Image
+        // Update Menu Content
         function updateMenu() {
-            menuImage.setAttribute('src', menuPages[currentPage]);
+            const page = menuPages[currentPage];
+            if (page.type === 'image') {
+                menuContent.setAttribute('src', page.src);
+                menuContent.setAttribute('visible', true);
+            } else if (page.type === 'video') {
+                menuContent.setAttribute('src', page.src);
+                menuContent.setAttribute('visible', true);
+                menuContent.play(); // Autoplay the video
+            }
         }
 
         // Next Button
