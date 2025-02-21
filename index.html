@@ -49,22 +49,40 @@
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
 
-        /* Font Awesome Icons */
-        .social-button i {
+        /* Navigation Buttons */
+        .nav-buttons {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        .nav-button {
+            padding: 10px 20px;
+            background: #0077B5;
             color: white;
-            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .nav-button:hover {
+            background: #005f8a;
         }
     </style>
 </head>
 <body>
     <!-- AR Scene -->
-    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;" vr-mode-ui="enabled: false">
         <!-- Hiro Marker -->
         <a-marker preset="hiro">
             <!-- Menu Card -->
-            <a-entity position="0 0.5 0" rotation="-90 0 0">
-                <!-- Menu Image -->
-                <a-image src="assets/menu.jpg" width="1.8" height="2.4" position="0 0 0"></a-image>
+            <a-entity id="menuCard" position="0 0.5 0" rotation="-90 0 0">
+                <!-- Menu Image (Default: Page 1) -->
+                <a-image id="menuImage" src="assets/menu1.jpg" width="1.8" height="2.4" position="0 0 0"></a-image>
 
                 <!-- Simple Text Below Menu -->
                 <a-text value="MADE BY SWASTIK-TECH" 
@@ -96,6 +114,12 @@
         </div>
     </div>
 
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons">
+        <button class="nav-button" id="prevButton">Previous</button>
+        <button class="nav-button" id="nextButton">Next</button>
+    </div>
+
     <!-- Interaction Script -->
     <script>
         // Social Media Interactions
@@ -106,6 +130,35 @@
         document.getElementById('linkedinBtn').addEventListener('click', () => {
             window.open('https://linkedin.com/company/swastik-tech', '_blank');
         });
+
+        // Multi-Page Menu Logic
+        const menuImage = document.getElementById('menuImage');
+        const menuPages = [
+            'assets/menu1.jpg',
+            'assets/menu2.jpg',
+            'assets/menu3.jpg'
+        ];
+        let currentPage = 0;
+
+        // Update Menu Image
+        function updateMenu() {
+            menuImage.setAttribute('src', menuPages[currentPage]);
+        }
+
+        // Next Button
+        document.getElementById('nextButton').addEventListener('click', () => {
+            currentPage = (currentPage + 1) % menuPages.length;
+            updateMenu();
+        });
+
+        // Previous Button
+        document.getElementById('prevButton').addEventListener('click', () => {
+            currentPage = (currentPage - 1 + menuPages.length) % menuPages.length;
+            updateMenu();
+        });
+
+        // Initialize Menu
+        updateMenu();
     </script>
 </body>
 </html>
