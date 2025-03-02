@@ -48,30 +48,6 @@
             transform: scale(1.2);
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
-
-        /* Navigation Buttons */
-        .nav-buttons {
-            position: fixed;
-            bottom: 100px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 20px;
-            z-index: 1000;
-        }
-
-        .nav-button {
-            padding: 10px 20px;
-            background: #0077B5;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .nav-button:hover {
-            background: #005f8a;
-        }
     </style>
 </head>
 <body>
@@ -92,6 +68,21 @@
                        width="6"
                        scale="0.6 0.6 0.6">
                 </a-text>
+            </a-entity>
+
+            <!-- 3D Navigation Buttons -->
+            <!-- Previous Button -->
+            <a-entity id="prevButton" position="-1 0.5 0" rotation="-90 0 0">
+                <a-box color="#0077B5" width="0.3" height="0.3" depth="0.1"></a-box>
+                <a-text value="Prev" color="white" align="center" position="0 0 0.06" scale="0.5 0.5 0.5"></a-text>
+                <a-animation attribute="position" to="-1 0.6 0" dur="1000" direction="alternate" loop="true"></a-animation>
+            </a-entity>
+
+            <!-- Next Button -->
+            <a-entity id="nextButton" position="1 0.5 0" rotation="-90 0 0">
+                <a-box color="#0077B5" width="0.3" height="0.3" depth="0.1"></a-box>
+                <a-text value="Next" color="white" align="center" position="0 0 0.06" scale="0.5 0.5 0.5"></a-text>
+                <a-animation attribute="position" to="1 0.6 0" dur="1000" direction="alternate" loop="true"></a-animation>
             </a-entity>
         </a-marker>
 
@@ -114,12 +105,6 @@
         </div>
     </div>
 
-    <!-- Navigation Buttons -->
-    <div class="nav-buttons">
-        <button class="nav-button" id="prevButton">Previous</button>
-        <button class="nav-button" id="nextButton">Next</button>
-    </div>
-
     <!-- Interaction Script -->
     <script>
         // Social Media Interactions
@@ -134,32 +119,32 @@
         // Multi-Page Menu Logic
         const menuContent = document.getElementById('menuContent');
         const menuPages = [
-            { type: 'image', src: 'assets/menu1.jpg' },
-            { type: 'image', src: 'assets/menu3.jpg' },
-            { type: 'video', src: 'assets/promo.mp4' } // Add your video file
+            { type: 'image', src: 'assets/menu1.jpg', width: 1.8, height: 2.4 }, // Default size for images
+            { type: 'video', src: 'assets/promo.mp4', width: 1.8, height: 1.0 }, // Adjusted size for videos
+            { type: 'image', src: 'assets/menu2.jpg', width: 1.8, height: 2.4 }
         ];
         let currentPage = 0;
 
         // Update Menu Content
         function updateMenu() {
             const page = menuPages[currentPage];
-            if (page.type === 'image') {
-                menuContent.setAttribute('src', page.src);
-                menuContent.setAttribute('visible', true);
-            } else if (page.type === 'video') {
-                menuContent.setAttribute('src', page.src);
-                menuContent.setAttribute('visible', true);
+            menuContent.setAttribute('src', page.src);
+            menuContent.setAttribute('width', page.width);
+            menuContent.setAttribute('height', page.height);
+            menuContent.setAttribute('visible', true);
+
+            if (page.type === 'video') {
                 menuContent.play(); // Autoplay the video
             }
         }
 
-        // Next Button
+        // Next Button Interaction
         document.getElementById('nextButton').addEventListener('click', () => {
             currentPage = (currentPage + 1) % menuPages.length;
             updateMenu();
         });
 
-        // Previous Button
+        // Previous Button Interaction
         document.getElementById('prevButton').addEventListener('click', () => {
             currentPage = (currentPage - 1 + menuPages.length) % menuPages.length;
             updateMenu();
