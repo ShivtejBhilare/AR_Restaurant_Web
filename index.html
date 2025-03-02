@@ -53,6 +53,9 @@
 <body>
     <!-- AR Scene -->
     <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;" vr-mode-ui="enabled: false">
+        <!-- Cursor for Interaction -->
+        <a-entity cursor="rayOrigin: mouse" raycaster="objects: .clickable"></a-entity>
+
         <!-- Hiro Marker -->
         <a-marker preset="hiro">
             <!-- Menu Card -->
@@ -72,14 +75,14 @@
 
             <!-- 3D Navigation Buttons -->
             <!-- Previous Button -->
-            <a-entity id="prevButton" position="-1 0.5 0" rotation="-90 0 0">
+            <a-entity id="prevButton" class="clickable" position="-1 0.5 0" rotation="-90 0 0">
                 <a-box color="#0077B5" width="0.3" height="0.3" depth="0.1"></a-box>
                 <a-text value="Prev" color="white" align="center" position="0 0 0.06" scale="0.5 0.5 0.5"></a-text>
                 <a-animation attribute="position" to="-1 0.6 0" dur="1000" direction="alternate" loop="true"></a-animation>
             </a-entity>
 
             <!-- Next Button -->
-            <a-entity id="nextButton" position="1 0.5 0" rotation="-90 0 0">
+            <a-entity id="nextButton" class="clickable" position="1 0.5 0" rotation="-90 0 0">
                 <a-box color="#0077B5" width="0.3" height="0.3" depth="0.1"></a-box>
                 <a-text value="Next" color="white" align="center" position="0 0 0.06" scale="0.5 0.5 0.5"></a-text>
                 <a-animation attribute="position" to="1 0.6 0" dur="1000" direction="alternate" loop="true"></a-animation>
