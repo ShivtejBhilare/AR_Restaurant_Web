@@ -123,8 +123,8 @@
         const menuContent = document.getElementById('menuContent');
         const menuPages = [
             { type: 'image', src: 'assets/menu1.jpg', width: 1.8, height: 2.4 }, // Default size for images
-            { type: 'image', src: 'assets/menu3.jpg', width: 1.8, height: 2.4 },
-            { type: 'video', src: 'assets/nincasa.mp4', width: 1.8, height: 1.0 }
+            { type: 'video', src: 'assets/promo.mp4', width: 1.8, height: 1.0 }, // Adjusted size for videos
+            { type: 'image', src: 'assets/menu2.jpg', width: 1.8, height: 2.4 }
         ];
         let currentPage = 0;
 
@@ -142,13 +142,13 @@
         }
 
         // Next Button Interaction
-        document.getElementById('nextButton').addEventListener('click', () => {
+        document.querySelector('#nextButton').addEventListener('click', () => {
             currentPage = (currentPage + 1) % menuPages.length;
             updateMenu();
         });
 
         // Previous Button Interaction
-        document.getElementById('prevButton').addEventListener('click', () => {
+        document.querySelector('#prevButton').addEventListener('click', () => {
             currentPage = (currentPage - 1 + menuPages.length) % menuPages.length;
             updateMenu();
         });
