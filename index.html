@@ -76,8 +76,8 @@
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
 
-        /* Restart Video Button */
-        .restart-button {
+        /* Replay Button */
+        .replay-button {
             position: fixed;
             bottom: 160px;
             left: 50%;
@@ -86,14 +86,20 @@
             background: #FF5722;
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 10px;
+            border-radius: 50%;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 20px;
+            display: none; /* Hidden by default */
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 40px; /* Fixed width */
+            height: 40px; /* Fixed height */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .restart-button:hover {
+        .replay-button:hover {
             transform: scale(1.1);
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
@@ -135,8 +141,10 @@
         <button class="nav-button" id="nextButton">Next</button>
     </div>
 
-    <!-- Restart Video Button -->
-    <button class="restart-button" id="restartButton">Restart Video</button>
+    <!-- Replay Video Button -->
+    <button class="replay-button" id="replayButton">
+        <i class="fas fa-redo"></i> <!-- Replay icon -->
+    </button>
 
     <!-- Social Media Buttons -->
     <div class="social-buttons">
@@ -164,10 +172,13 @@
         const menuPages = [
             { type: 'image', src: 'assets/menu1.jpg', width: 1.8, height: 2.4 }, // Default size for images
             { type: 'video', src: 'assets/nincasa.mp4', width: 1.8, height: 1.0 }, // Adjusted size for videos
-            { type: 'image', src: 'assets/menu3.jpg', width: 1.8, height: 2.4 }
+            { type: 'image', src: 'assets/menu3.jpg', width: 1.5, height: 2.0 }  // Another new image
         ];
         let currentPage = 0;
         let videoTimestamp = 0; // To store the video's current time
+
+        // Replay Button
+        const replayButton = document.getElementById('replayButton');
 
         // Update Menu Content
         function updateMenu() {
@@ -181,6 +192,12 @@
                 // Set the video's current time to the stored timestamp
                 menuContent.currentTime = videoTimestamp;
                 menuContent.play(); // Autoplay the video
+                replayButton.style.display = 'flex'; // Show replay button
+            } else {
+                // Pause the video and hide the replay button for non-video pages
+                menuContent.pause();
+                menuContent.currentTime = 0; // Reset video to the beginning
+                replayButton.style.display = 'none';
             }
         }
 
@@ -189,6 +206,8 @@
             if (menuPages[currentPage].type === 'video') {
                 // Save the video's current time before switching
                 videoTimestamp = menuContent.currentTime;
+                menuContent.pause(); // Pause the video
+                menuContent.currentTime = 0; // Reset video to the beginning
             }
             currentPage = (currentPage + 1) % menuPages.length;
             updateMenu();
@@ -199,13 +218,15 @@
             if (menuPages[currentPage].type === 'video') {
                 // Save the video's current time before switching
                 videoTimestamp = menuContent.currentTime;
+                menuContent.pause(); // Pause the video
+                menuContent.currentTime = 0; // Reset video to the beginning
             }
             currentPage = (currentPage - 1 + menuPages.length) % menuPages.length;
             updateMenu();
         });
 
-        // Restart Video Button Interaction
-        document.getElementById('restartButton').addEventListener('click', () => {
+        // Replay Video Button Interaction
+        replayButton.addEventListener('click', () => {
             if (menuPages[currentPage].type === 'video') {
                 menuContent.currentTime = 0; // Reset video to the beginning
                 menuContent.play(); // Play the video
