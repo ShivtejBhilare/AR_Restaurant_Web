@@ -153,6 +153,38 @@
             updateMenu();
         });
 
+        // Swipe Gesture Logic
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        function handleTouchStart(event) {
+            touchStartX = event.touches[0].clientX;
+        }
+
+        function handleTouchEnd(event) {
+            touchEndX = event.changedTouches[0].clientX;
+            handleSwipe();
+        }
+
+        function handleSwipe() {
+            const swipeThreshold = 50; // Minimum swipe distance to trigger
+            const swipeDistance = touchEndX - touchStartX;
+
+            if (swipeDistance > swipeThreshold) {
+                // Swipe right -> Previous page
+                currentPage = (currentPage - 1 + menuPages.length) % menuPages.length;
+                updateMenu();
+            } else if (swipeDistance < -swipeThreshold) {
+                // Swipe left -> Next page
+                currentPage = (currentPage + 1) % menuPages.length;
+                updateMenu();
+            }
+        }
+
+        // Add Touch Event Listeners
+        document.addEventListener('touchstart', handleTouchStart, false);
+        document.addEventListener('touchend', handleTouchEnd, false);
+
         // Initialize Menu
         updateMenu();
     </script>
